@@ -1,36 +1,35 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ config('app.name') }} - EventApp</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+<body class="bg-gray-100 min-h-screen">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
-
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
-
-            <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endisset
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+    <nav class="bg-white shadow px-6 py-4 flex items-center justify-between">
+        <a href="/" class="font-bold text-lg text-gray-800">EventApp</a>
+        <div class="flex items-center gap-6">
+            <a href="/" class="text-gray-600 hover:text-gray-900">Home</a>
+            <a href="/events" class="text-gray-600 hover:text-gray-900">Daftar Event</a>
+            @auth
+                <a href="/dashboard" class="text-gray-600 hover:text-gray-900">Dashboard</a>
+                <span class="text-gray-500 text-sm">{{ auth()->user()->name }}</span>
+                <form method="POST" action="/logout" class="inline">
+                    @csrf
+                    <button type="submit" class="text-red-500 hover:text-red-700">Logout</button>
+                </form>
+            @else
+                <a href="/login" class="text-gray-600 hover:text-gray-900">Login</a>
+                <a href="/register" class="text-gray-600 hover:text-gray-900">Register</a>
+            @endauth
         </div>
-    </body>
+    </nav>
+
+    <main class="container mx-auto px-6 py-8">
+        @yield('content')
+    </main>
+
+</body>
 </html>
