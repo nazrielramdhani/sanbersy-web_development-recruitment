@@ -19,4 +19,31 @@ class EventController extends Controller
         if (!$event) abort(404);
         return view('events.show', compact('event'));
     }
+
+    public function register(Request $request, $id)
+    {
+        $event = DB::table('events')->where('id', $id)->first();
+        if (!$event) abort(404);
+
+        // Cek apakah user sudah mendaftar event ini
+        $alreadyRegistered = DB::table('event_registrations')
+            ->where('user_id', auth()->id())
+            ->where('event_id', $id)
+            ->exists();
+
+        if ($alreadyRegistered) {
+            return redirect()->back()->with('error', 'Kamu sudah mendaftar event ini!');
+        }
+
+        DB::table('event_registrations')->insert([
+            'user_id' => auth()->id(),
+            'event_id' => $id,
+            'status' => 'registered',
+            'registered_at' => now(),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return redirect()->back()->with('success', 'Berhasil mendaftar event!');
+    }
 }

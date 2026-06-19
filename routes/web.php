@@ -21,5 +21,6 @@ Route::middleware('auth')->group(function () {
 // Event Routes
 Route::get('/events', [EventController::class, 'index']);
 Route::get('/events/{id}', [EventController::class, 'show']);
+Route::post('/events/{id}/register', [EventController::class, 'register'])->middleware('auth');
 
 require __DIR__.'/auth.php';
