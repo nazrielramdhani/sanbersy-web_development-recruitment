@@ -1,59 +1,138 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# EventApp — Sanbersy Web Development Recruitment Test
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi web manajemen pendaftaran event yang dibangun menggunakan Laravel 12.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Fitur Aplikasi
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Untuk User Umum
+- **Registrasi & Login** — dengan validasi dan fitur show/hide password
+- **Daftar Event** — melihat semua event yang tersedia beserta lokasi
+- **Detail Event** — informasi lengkap event termasuk alamat lengkap
+- **Pendaftaran Event** — mendaftar event dengan satu klik
+- **Email Konfirmasi** — email otomatis terkirim setelah mendaftar event
+- **Dashboard Pribadi** — ringkasan jumlah dan daftar event yang diikuti
+- **Active Navigation** — indikator halaman aktif di navbar
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Untuk Admin
+- **Kelola Event (CRUD)** — tambah, edit, dan hapus event
+- **Manajemen Lokasi** — setiap event memiliki alamat lengkap hingga nama ruangan
+- **Akses Terbatas** — halaman admin hanya bisa diakses oleh user berole admin
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## Tech Stack
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Framework** — Laravel 12
+- **Autentikasi** — Laravel Breeze
+- **Database** — MySQL
+- **Frontend** — Blade Template + Tailwind CSS
+- **Email Testing** — Mailtrap (Email Sandbox)
+- **Version Control** — Git + GitHub
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Cara Instalasi
 
-### Premium Partners
+### Prerequisites
+- PHP 8.2+
+- Composer
+- Node.js & NPM
+- MySQL (atau Laragon)
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Langkah Instalasi
 
-## Contributing
+**1. Clone repositori**
+```bash
+git clone https://github.com/USERNAME/sanbersy-web_development-recruitment.git
+cd sanbersy-web_development-recruitment
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**2. Install dependencies**
+```bash
+composer install
+npm install
+```
 
-## Code of Conduct
+**3. Salin file environment dan generate key**
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**4. Konfigurasi database di `.env`**
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=sanbersy_web_development_recruitment
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-## Security Vulnerabilities
+**5. Konfigurasi email di `.env` (gunakan Mailtrap)**
+```env
+MAIL_MAILER=smtp
+MAIL_HOST=sandbox.smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=your_mailtrap_username
+MAIL_PASSWORD=your_mailtrap_password
+MAIL_FROM_ADDRESS="noreply@eventapp.com"
+MAIL_FROM_NAME="EventApp"
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**6. Jalankan migration dan seeder**
+```bash
+php artisan migrate
+php artisan db:seed
+```
 
-## License
+**7. Build assets dan jalankan server**
+```bash
+npm run dev
+php artisan serve
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+**8. Buka browser ke `http://localhost:8000`**
+
+---
+
+## Akun & Role
+
+| Role | Cara Akses | Email | Password |
+|------|-----------|-------|----------|
+| Admin | Sudah tersedia via seeder | admin@eventapp.com | password123 |
+| User | Daftar mandiri lewat `/register` | bebas | bebas |
+
+### Perbedaan Hak Akses
+- **Admin** — dapat mengakses halaman Kelola Event (`/admin/events`) untuk menambah, mengedit, dan menghapus event beserta lokasinya
+- **User** — dapat melihat daftar event, mendaftar event, menerima email konfirmasi, dan melihat dashboard pribadi
+
+---
+
+## Struktur Halaman
+
+| Halaman | URL | Akses |
+|---------|-----|-------|
+| Landing Page | `/` | Public |
+| Daftar Event | `/events` | Public |
+| Detail Event | `/events/{id}` | Public |
+| Login | `/login` | Public |
+| Register | `/register` | Public |
+| Pendaftaran Event | `/events/{id}/register` | User Login |
+| Dashboard | `/dashboard` | User Login |
+| Kelola Event | `/admin/events` | Admin |
+| Tambah Event | `/admin/events/create` | Admin |
+| Edit Event | `/admin/events/{id}/edit` | Admin |
+
+---
+
+## Alur Email Konfirmasi
+
+1. User login dan membuka halaman detail event
+2. User klik tombol **"Daftar Sekarang"**
+3. Data tersimpan ke tabel `event_registrations`
+4. Laravel Mail otomatis mengirim email konfirmasi ke inbox user
+5. Email berisi nama user, nama event, tanggal, dan lokasi event
+6. Email dapat dipantau melalui Mailtrap Email Sandbox
