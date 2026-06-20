@@ -20,12 +20,18 @@
         <p class="text-gray-600 mb-8">{{ $event->description }}</p>
 
         @auth
-            <form method="POST" action="/events/{{ $event->id }}/register">
-                @csrf
-                <button type="submit" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700">
-                    Daftar Sekarang
+            @if($alreadyRegistered)
+                <button disabled style="background:#9CA3AF; color:white; padding:12px 24px; border-radius:8px; border:none; cursor:not-allowed;">
+                    ✓ Sudah Terdaftar
                 </button>
-            </form>
+            @else
+                <form method="POST" action="/events/{{ $event->id }}/register">
+                    @csrf
+                    <button type="submit" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700">
+                        Daftar Sekarang
+                    </button>
+                </form>
+            @endif
         @else
             <a href="/login" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700">
                 Login untuk Mendaftar

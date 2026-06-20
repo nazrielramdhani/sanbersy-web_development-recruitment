@@ -19,7 +19,16 @@ class EventController extends Controller
     {
         $event = DB::table('events')->where('id', $id)->first();
         if (!$event) abort(404);
-        return view('events.show', compact('event'));
+
+        $alreadyRegistered = false;
+        if (auth()->check()) {
+            $alreadyRegistered = DB::table('event_registrations')
+                ->where('user_id', auth()->id())
+                ->where('event_id', $id)
+                ->exists();
+        }
+
+        return view('events.show', compact('event', 'alreadyRegistered'));
     }
 
     public function register(Request $request, $id)
