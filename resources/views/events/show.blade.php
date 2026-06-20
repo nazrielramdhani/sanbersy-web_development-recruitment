@@ -14,8 +14,11 @@
 @endif
     <div class="max-w-2xl mx-auto bg-white rounded-lg shadow p-8">
         <h1 class="text-3xl font-bold text-gray-800 mb-2">{{ $event->title }}</h1>
-        <p class="text-blue-600 font-medium mb-4">
+        <p class="text-blue-600 font-medium mb-2">
             {{ \Carbon\Carbon::parse($event->event_date)->format('d M Y, H:i') }}
+        </p>
+        <p class="text-gray-500 mb-4">
+            {{ $event->location ?? 'Lokasi belum ditentukan' }}
         </p>
         <p class="text-gray-600 mb-8">{{ $event->description }}</p>
 

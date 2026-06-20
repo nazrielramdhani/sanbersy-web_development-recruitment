@@ -40,6 +40,7 @@ class AdminEventController extends Controller
         DB::table('events')->insert([
             'title' => $request->title,
             'description' => $request->description,
+            'location' => $request->location,
             'event_date' => $request->event_date,
             'created_at' => now(),
             'updated_at' => now(),
@@ -62,12 +63,14 @@ class AdminEventController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
+            'location' => 'nullable|string|max:255',
             'event_date' => 'required|date',
         ]);
 
         DB::table('events')->where('id', $id)->update([
             'title' => $request->title,
             'description' => $request->description,
+            'location' => $request->location,
             'event_date' => $request->event_date,
             'updated_at' => now(),
         ]);

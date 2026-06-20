@@ -15,6 +15,7 @@
             <thead class="bg-gray-50 text-gray-600">
                 <tr>
                     <th class="px-6 py-3 text-left">Judul Event</th>
+                    <th class="px-6 py-3 text-left">Lokasi</th>
                     <th class="px-6 py-3 text-left">Tanggal</th>
                     <th class="px-6 py-3 text-left">Aksi</th>
                 </tr>
@@ -23,6 +24,7 @@
                 @forelse($events as $event)
                     <tr>
                         <td class="px-6 py-4 font-medium text-gray-800">{{ $event->title }}</td>
+                        <td class="px-6 py-4 text-gray-500 text-sm">{{ $event->location ?? '-' }}</td>
                         <td class="px-6 py-4 text-gray-500">{{ \Carbon\Carbon::parse($event->event_date)->format('d M Y, H:i') }}</td>
                         <td class="px-6 py-4">
                             <div style="display:flex; gap:8px;">

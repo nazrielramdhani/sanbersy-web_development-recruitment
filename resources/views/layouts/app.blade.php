@@ -11,12 +11,12 @@
     <nav class="bg-white shadow px-6 py-4 flex items-center justify-between">
         <a href="/" class="font-bold text-lg text-gray-800">EventApp</a>
         <div class="flex items-center gap-6">
-            <a href="/" class="text-gray-600 hover:text-gray-900">Home</a>
+            <a href="/" class="{{ request()->is('/') ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900' }}">Home</a>
+            <a href="/events" class="{{ request()->is('events*') ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900' }}">Daftar Event</a>
             @auth
-                <a href="/events" class="text-gray-600 hover:text-gray-900">Daftar Event</a>
-                <a href="/dashboard" class="text-gray-600 hover:text-gray-900">Dashboard</a>
+                <a href="/dashboard" class="{{ request()->is('dashboard') ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900' }}">Dashboard</a>
                 @if(auth()->user()->role === 'admin')
-                    <a href="/admin/events" class="text-blue-600 font-medium hover:text-blue-800">Kelola Event</a>
+                    <a href="/admin/events" class="{{ request()->is('admin*') ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900' }}">Kelola Event</a>
                 @endif
                 <span class="text-gray-500 text-sm">{{ auth()->user()->name }}</span>
                 <form method="POST" action="/logout" class="inline">
@@ -24,9 +24,8 @@
                     <button type="submit" class="text-red-500 hover:text-red-700">Logout</button>
                 </form>
             @else
-                <a href="/events" class="text-gray-600 hover:text-gray-900">Daftar Event</a>
-                <a href="/login" class="text-gray-600 hover:text-gray-900">Login</a>
-                <a href="/register" class="text-gray-600 hover:text-gray-900">Register</a>
+                <a href="/login" class="{{ request()->is('login') ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900' }}">Login</a>
+                <a href="/register" class="{{ request()->is('register') ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-gray-900' }}">Register</a>
             @endauth
         </div>
     </nav>
