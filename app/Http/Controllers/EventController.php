@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\EventRegistrationConfirmation;
 
 class EventController extends Controller
 {
@@ -25,7 +27,6 @@ class EventController extends Controller
         $event = DB::table('events')->where('id', $id)->first();
         if (!$event) abort(404);
 
-        // Cek apakah user sudah mendaftar event ini
         $alreadyRegistered = DB::table('event_registrations')
             ->where('user_id', auth()->id())
             ->where('event_id', $id)
@@ -44,6 +45,12 @@ class EventController extends Controller
             'updated_at' => now(),
         ]);
 
-        return redirect()->back()->with('success', 'Berhasil mendaftar event!');
+        // Kirim email konfirmasi
+        $user = auth()->user();
+        Mail::to($user->email)->send(
+            new EventRegistrationConfirmation($user->name, $event->title, $event->event_date)
+        );
+
+        return redirect()->back()->with('success', 'Berhasil mendaftar event! Email konfirmasi telah dikirim.');
     }
 }
